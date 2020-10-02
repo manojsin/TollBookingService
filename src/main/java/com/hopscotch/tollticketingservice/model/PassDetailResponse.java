@@ -2,11 +2,14 @@ package com.hopscotch.tollticketingservice.model;
 import com.hopscotch.tollticketingservice.entity.PassDetail;
 import com.hopscotch.tollticketingservice.entity.TollBoothDetail;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 @Data
-public class PassDetailResponse {
+@NoArgsConstructor
+public class PassDetailResponse extends AbstractResponse{
     private Long tollId;
     private String tollName;
     private List<PassData> passDetail;

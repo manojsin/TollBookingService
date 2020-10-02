@@ -1,12 +1,16 @@
 package com.hopscotch.tollticketingservice.entity;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "toll_details")
-public class TollDetail {
+public class TollDetail implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "toll_num")

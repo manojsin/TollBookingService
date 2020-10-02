@@ -1,11 +1,17 @@
 package com.hopscotch.tollticketingservice.entity;
+import com.hopscotch.tollticketingservice.model.PassBookingRequest;
+import com.hopscotch.tollticketingservice.utils.CommonUtil;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "pass_booking_details")
-public class BookingDetail {
+public class BookingDetail implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
@@ -34,4 +40,20 @@ public class BookingDetail {
     private int maxLimit;
     @Column(name = "used_num")
     private int usedNum;
+
+    public BookingDetail (PassBookingRequest passBookingRequest,String bookingRef)
+    {
+     this.vehicleRegNum=passBookingRequest.getVehicleRegNum();
+     this.vehicleType=passBookingRequest.getVehicleType();
+     this.tollNum=passBookingRequest.getTollId();
+     this.boothNum=passBookingRequest.getBoothId();
+     this.bookingRefNum=bookingRef;
+     this.validTill= CommonUtil.calculatePassExpiryDate(passBookingRequest.getPassType());
+     this.validFrom=new Date();
+     this.passType=passBookingRequest.getPassType();
+     this.passPrice=passBookingRequest.getPassPrice();
+     this.passIssueDate=new Date();
+     this.maxLimit=CommonUtil.calculateMaxLimit(passBookingRequest.getPassType());
+     this.usedNum=1;
+    }
 }

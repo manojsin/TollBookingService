@@ -1,4 +1,5 @@
 package com.hopscotch.tollticketingservice.service;
+import com.hopscotch.tollticketingservice.utils.CommonConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service
@@ -15,10 +16,10 @@ public class BookingFactory {
 
     }
     public BookingService getBookingService(String vehicleType) {
-        switch (vehicleType) {
-            case "TWOWHEELER":
+        switch (vehicleType.toUpperCase()) {
+            case CommonConstant.TWO_WHEELER:
                 return twoWheelerBooking;
-            case "FOURWHEELER":
+            case CommonConstant.FOUR_WHEELER:
                 return fourWheelerBooking;
             default:
                 return null;

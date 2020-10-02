@@ -27,7 +27,7 @@ public class TollPassBookingService {
        return bookingService.getAllPassDetails(vehicleType,tollId);
     }
    public PassBookingResponse issuePass(PassBookingRequest passBookingRequest){
-        bookingService=factory.getBookingService(passBookingRequest.getBookingType());
+        bookingService=factory.getBookingService(passBookingRequest.getVehicleType());
         return bookingService.issuePass(passBookingRequest);
     }
 

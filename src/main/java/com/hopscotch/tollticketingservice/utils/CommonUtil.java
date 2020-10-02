@@ -4,9 +4,7 @@ import com.hopscotch.tollticketingservice.exception.RequestInvalidException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class CommonUtil {
 
@@ -22,5 +20,34 @@ public class CommonUtil {
 
             throw new RequestInvalidException(errorMap);
         }
+    }
+    public static Date calculatePassExpiryDate(String passType)
+    {
+        int day=0;
+        if(passType.equalsIgnoreCase("OneWay")||passType.equalsIgnoreCase("TwoWay") ) {
+            day=1;
+        }
+        if(passType.equalsIgnoreCase("Weekly")) {
+            day=7;
+        }
+        Date dt = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.DATE, day);
+        return c.getTime();
+    }
+    public static int calculateMaxLimit(String passType)
+    {
+        int maxCount=0;
+        if(passType.equalsIgnoreCase("OneWay") ) {
+            maxCount=1;
+        }
+        if(passType.equalsIgnoreCase("TwoWay")) {
+            maxCount=2;
+        }
+        if(passType.equalsIgnoreCase("Weekly")) {
+            maxCount=14;
+        }
+        return  maxCount;
     }
 }
