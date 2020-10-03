@@ -8,7 +8,9 @@ public enum TollServiceStatus implements BasicResponseStatus{
     PASS_NOT_AVAILABLE_FOR_FOUR_WHEELER("200","Currently pass  are not available for for wheeler",null,false),
     PASS_AVAILABLE("200","Successfully fetched pass details",null,true),
     PASS_BOOKING_FAILED("500","Internal Server Error",null,false),
-    PASS_BOOKING_SUCCESS("200","Pass Successfully booked","",true);
+    PASS_BOOKING_SUCCESS("200","Pass Successfully booked","",true),
+    TOTAL_COLLECTION_DATA_NOT_AVAILABLE("200","Sorry Data is not available for this Query",null,false),
+    TOTAL_COLLECTION_SUCCESS("200","Successfully total amount and vehicle data fetched",null,true);
 
     private boolean status;
     private String message;

@@ -1,20 +1,28 @@
 package com.hopscotch.tollticketingservice.service;
-import com.hopscotch.tollticketingservice.model.CheckValidityResponse;
-import com.hopscotch.tollticketingservice.model.PassBookingRequest;
-import com.hopscotch.tollticketingservice.model.PassBookingResponse;
-import com.hopscotch.tollticketingservice.model.PassDetailResponse;
+import com.hopscotch.tollticketingservice.entity.BookingDetail;
+import com.hopscotch.tollticketingservice.model.*;
+import com.hopscotch.tollticketingservice.repository.BookingDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
-public class TollPassBookingService {
+public class TollPassBookingService  implements CommonService{
 
     private BookingFactory factory;
     private BookingService bookingService;
+    private BookingDetailRepository bookingDetailRepository;
+    private  ResponseUtil responseUtil;
+
 
     @Autowired
-    public TollPassBookingService(BookingFactory factory) {
+    public TollPassBookingService(BookingFactory factory,BookingDetailRepository bookingDetailRepository,ResponseUtil responseUtil) {
         this.factory=factory;
+        this.bookingDetailRepository=bookingDetailRepository;
+        this.responseUtil=responseUtil;
     }
 
    public CheckValidityResponse checkValidity(String registrationNumber, String vehicleType){
@@ -31,4 +39,21 @@ public class TollPassBookingService {
         return bookingService.issuePass(passBookingRequest);
     }
 
+    @Override
+    public TotalCollectionResponse getTotalCollection(Long bootId, Long tollId) {
+        TotalCollectionResponse response=new TotalCollectionResponse();
+        List<BookingDetail> bookingData= bookingDetailRepository.findByTollNumAndBoothNum(tollId,bootId);
+        if(bookingData.isEmpty() || null==bookingData ) {
+            response.setStatus(responseUtil.populateBasicResponse(TollServiceStatus.TOTAL_COLLECTION_DATA_NOT_AVAILABLE));
+            return response;
+        }
+        Double totalCollection= bookingData.stream().collect(Collectors.summingDouble(BookingDetail::getPassPrice));
+        int totalCrossVehicle= bookingData.stream().collect(Collectors.summingInt(BookingDetail::getUsedNum));
+        response.setTollId(tollId);
+        response.setBoothId(bootId);
+        response.setCrossedVehicle(totalCrossVehicle);
+        response.setTotalCollection(totalCollection);
+        response.setStatus(responseUtil.populateBasicResponse(TollServiceStatus.TOTAL_COLLECTION_SUCCESS));
+        return response;
+    }
 }

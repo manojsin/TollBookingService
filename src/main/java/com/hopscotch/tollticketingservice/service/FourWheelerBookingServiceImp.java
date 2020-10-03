@@ -32,8 +32,8 @@ public class FourWheelerBookingServiceImp implements BookingService {
     @Override
     public CheckValidityResponse checkValidity(String registrationNumber) {
         CheckValidityResponse response=new CheckValidityResponse();
-        Optional<List<BookingDetail>>bookingDetails= bookingDetailRepository.checkValidPassByRegistrationNum(registrationNumber);
-        if(!bookingDetails.isPresent()) {
+        List<BookingDetail>bookingDetails= bookingDetailRepository.checkValidPassByRegistrationNum(registrationNumber);
+        if(bookingDetails ==null || bookingDetails.isEmpty()) {
             response.setStatus(responseUtil.populateBasicResponse(TollServiceStatus.USER_INVALID_PASS));
             return response;
         }

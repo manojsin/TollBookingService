@@ -1,8 +1,5 @@
 package com.hopscotch.tollticketingservice.controller;
-import com.hopscotch.tollticketingservice.model.CheckValidityResponse;
-import com.hopscotch.tollticketingservice.model.PassBookingRequest;
-import com.hopscotch.tollticketingservice.model.PassBookingResponse;
-import com.hopscotch.tollticketingservice.model.PassDetailResponse;
+import com.hopscotch.tollticketingservice.model.*;
 import com.hopscotch.tollticketingservice.service.TollPassBookingService;
 import com.hopscotch.tollticketingservice.utils.CommonUtil;
 import io.swagger.annotations.ApiOperation;
@@ -46,6 +43,14 @@ public class BookingController {
     {
         CommonUtil.validateRequest(error);
         PassBookingResponse response=passBookingService.issuePass(passBookingRequest);
+        return  new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "get/total/collection",method = RequestMethod.POST)
+    @ApiOperation(value = "Get Collection by both Number", response = TotalCollectionResponse.class)
+    public ResponseEntity<?> getTotalCollection(@RequestParam("bootId") Long bootId,@RequestParam("tollId") Long tollId)
+    {
+        TotalCollectionResponse response=passBookingService.getTotalCollection(bootId,tollId);
         return  new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
