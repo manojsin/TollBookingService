@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/")
@@ -39,7 +39,7 @@ public class BookingController {
 
     @RequestMapping(value = "book/toll/pass",method = RequestMethod.POST)
     @ApiOperation(value = "Book Toll Pass", response = PassBookingResponse.class)
-    public ResponseEntity<?> bookTollPass(@Validated @RequestBody PassBookingRequest passBookingRequest, BindingResult error)
+    public ResponseEntity<?> bookTollPass(@Valid @RequestBody PassBookingRequest passBookingRequest, BindingResult error)
     {
         CommonUtil.validateRequest(error);
         PassBookingResponse response=passBookingService.issuePass(passBookingRequest);
@@ -47,7 +47,7 @@ public class BookingController {
     }
 
     @RequestMapping(value = "get/total/collection",method = RequestMethod.POST)
-    @ApiOperation(value = "Get Collection by both Number", response = TotalCollectionResponse.class)
+    @ApiOperation(value = "Get Collection by both Number and Tool Num", response = TotalCollectionResponse.class)
     public ResponseEntity<?> getTotalCollection(@RequestParam("bootId") Long bootId,@RequestParam("tollId") Long tollId)
     {
         TotalCollectionResponse response=passBookingService.getTotalCollection(bootId,tollId);
