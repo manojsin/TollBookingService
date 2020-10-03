@@ -1,4 +1,5 @@
 package com.hopscotch.tollticketingservice.model;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.hopscotch.tollticketingservice.entity.PassDetail;
 import com.hopscotch.tollticketingservice.entity.TollBoothDetail;
 import lombok.Data;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 @Data
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PassDetailResponse extends AbstractResponse{
     private Long tollId;
     private String tollName;
@@ -16,11 +18,13 @@ public class PassDetailResponse extends AbstractResponse{
     private List<BoothData> boothDetail;
 
     @Data
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class PassData{
         private String passType;
         private double price;
     }
     @Data
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class BoothData{
         private String boothName;
         private Long boothId;

@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public abstract class AbstractResponse {
-    private BaseResponse baseResponse;
+    private BaseResponse status;
 }

@@ -2,12 +2,13 @@ package com.hopscotch.tollticketingservice.model;
 
 public enum TollServiceStatus implements BasicResponseStatus{
 
-    USER_INVALID_PASS("200","Success","does't have valid pass",false),
-    USER_VALID_PASS("200","Success","valid pass",true),
-    PASS_NOT_AVAILABLE_FOR_TWO_WHEELER("200","Success","Currently pass  are not available for two wheeler",false),
-    PASS_AVAILABLE("200","Success","Successfully pass details are fetched",true),
-    PASS_BOOKING_FAILED("500","Failure","Internal Server Error",false),
-    PASS_BOOKING_SUCCESS("200","Success","Pass Successfully booked",false);
+    USER_INVALID_PASS("200","does't have valid pass",null,false),
+    USER_VALID_PASS("200","valid pass",null,true),
+    PASS_NOT_AVAILABLE_FOR_TWO_WHEELER("200","Currently pass  are not available for two wheeler",null,false),
+    PASS_NOT_AVAILABLE_FOR_FOUR_WHEELER("200","Currently pass  are not available for for wheeler",null,false),
+    PASS_AVAILABLE("200","Successfully fetched pass details",null,true),
+    PASS_BOOKING_FAILED("500","Internal Server Error",null,false),
+    PASS_BOOKING_SUCCESS("200","Pass Successfully booked","",true);
 
     private boolean status;
     private String message;

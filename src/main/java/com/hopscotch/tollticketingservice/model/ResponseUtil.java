@@ -10,7 +10,6 @@ import java.util.List;
 public class ResponseUtil {
 
     public BaseResponse populateBasicResponse(BasicResponseStatus basicResponseStatus, List<String> devMessage) {
-
         BaseResponse responseStatusBO = new BaseResponse();
         responseStatusBO.setHttpCode(basicResponseStatus.getHttpCode());
         responseStatusBO.setStatus(basicResponseStatus.isStatus());

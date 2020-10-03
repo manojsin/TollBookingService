@@ -1,6 +1,8 @@
 package com.hopscotch.tollticketingservice.model;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PassBookingRequest {
     private String vehicleRegNum;
     private String vehicleType;
