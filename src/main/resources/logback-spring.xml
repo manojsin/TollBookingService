@@ -1,0 +1,29 @@
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+
+    <appender name="TIME_BASED_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./logs/toll-booking-service.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy" >
+            <!-- Hourly rollover -->
+            <fileNamePattern>./logs/toll-booking-service%d{yyyy-MM-dd h a}.log</fileNamePattern>
+            <maxHistory>76</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %-5level %logger{26} - %mdc - %msg%n%ex{full}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="TIME_BASED_FILE" />
+    </root>
+    <springProfile name="dev,QA">
+        <logger name="com.hopscotch" level="DEBUG" />
+    </springProfile>
+    <!--QA Log Profile -->
+    <springProfile name="RFS,PROD">
+        <logger name="com.hopscotch" level="INFO" />
+    </springProfile>
+</configuration>
